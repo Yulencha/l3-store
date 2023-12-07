@@ -12,7 +12,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,.03);
+      background: rgba(0, 0, 0, 0.03);
       pointer-events: none;
     }
 
@@ -46,4 +46,13 @@
       margin-right: 10px;
     }
   }
+}
+
+.product__remove {
+  display: none;
+}
+
+.product.show-remove-button .product__remove {
+  display: block;
+  margin-top: 5px;
 }

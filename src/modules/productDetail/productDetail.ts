@@ -4,6 +4,7 @@ import { formatPrice } from '../../utils/helpers';
 import { ProductData } from 'types';
 import html from './productDetail.tpl.html';
 import { cartService } from '../../services/cart.service';
+import { favoritesService } from '../../services/favorites.service';
 
 class ProductDetail extends Component {
   more: ProductList;
@@ -32,10 +33,17 @@ class ProductDetail extends Component {
     this.view.description.innerText = description;
     this.view.price.innerText = formatPrice(salePriceU);
     this.view.btnBuy.onclick = this._addToCart.bind(this);
+    this.view.btnFav.onclick = this._toggleToFavorites.bind(this);
 
     const isInCart = await cartService.isInCart(this.product);
 
     if (isInCart) this._setInCart();
+
+    // Проверяем, находится ли товар в избранном, и обновляем кнопку
+    const isFavorite = await favoritesService.isInFavorites(this.product);
+    if (isFavorite) {
+      this.view.btnFav.classList.add('in-favorites');
+    }
 
     fetch(`/api/getProductSecretKey?id=${id}`)
       .then((res) => res.json())
@@ -60,6 +68,20 @@ class ProductDetail extends Component {
   private _setInCart() {
     this.view.btnBuy.innerText = '✓ В корзине';
     this.view.btnBuy.disabled = true;
+  }
+
+  private async _toggleToFavorites() {
+    if (!this.product) return;
+
+    // Переключаем состояние товара в избранном
+    const isFavorite = await favoritesService.toggleProduct(this.product);
+
+    // Обновляем внешний вид кнопки в зависимости от того, в избранном ли товар
+    if (isFavorite) {
+      this.view.btnFav.classList.add('in-favorites');
+    } else {
+      this.view.btnFav.classList.remove('in-favorites');
+    }
   }
 }
 

@@ -6,6 +6,7 @@ body {
   --key-color-dark: #a2097b;
   --plate-color: #f6f6fa;
   --border-radius: 20px;
+  --fill-color: none;
 
   font-family:
     system,
@@ -95,6 +96,12 @@ img {
     height: 32px;
     margin-top: 4px;
   }
+  &:hover {
+    --key-color: var(--key-color-dark);
+  }
+  &.in-favorites {
+    --fill-color: var(--key-color);
+  }
 }
 
 .btn {
@@ -117,6 +124,30 @@ img {
 
   &.is__large {
     font-size: 1.25em;
+  }
+}
+.favorites {
+  position: relative;
+}
+
+.favoritesCounter {
+  position: absolute;
+  right: -21px;
+  top: -10px;
+  background: #ff5100;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  display: block;
+  width: 20px;
+  line-height: 20px;
+  text-align: center;
+  padding: 0;
+
+  &:empty {
+    display: none;
   }
 }
 
@@ -173,4 +204,8 @@ img {
   &:not(:last-child) {
     margin-bottom: 30px;
   }
+}
+
+.hidden {
+  display: none;
 }
