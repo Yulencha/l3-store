@@ -4,10 +4,12 @@ import { formatPrice } from '../../utils/helpers';
 import { ProductData } from 'types';
 import html from './productDetail.tpl.html';
 import { cartService } from '../../services/cart.service';
+import { eventService } from '../../services/event.service';
 
 class ProductDetail extends Component {
   more: ProductList;
   product?: ProductData;
+  secretKey?: string;
 
   constructor(props: any) {
     super(props);
@@ -40,6 +42,7 @@ class ProductDetail extends Component {
     fetch(`/api/getProductSecretKey?id=${id}`)
       .then((res) => res.json())
       .then((secretKey) => {
+        this.secretKey = secretKey;
         this.view.secretKey.setAttribute('content', secretKey);
       });
 
@@ -48,12 +51,22 @@ class ProductDetail extends Component {
       .then((products) => {
         this.more.update(products);
       });
+
+    // Если нужна отправка события при просмотре карточки товара
+    // if (this.product) {
+    //   const payload = { ...this.product, secretKey: this.secretKey };
+    //   eventService.sendEvent(this.product.log ? 'viewCardPromo' : 'viewCard', payload);
+    // }
   }
 
   private _addToCart() {
     if (!this.product) return;
 
     cartService.addProduct(this.product);
+
+    // Отправка события при добавлении товара в корзину
+    eventService.sendEvent('addToCard', { ...this.product });
+
     this._setInCart();
   }
 

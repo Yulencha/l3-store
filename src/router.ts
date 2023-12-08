@@ -3,6 +3,7 @@ import { notFoundComp } from './modules/notFound/notFound';
 import { homepageComp } from './modules/homepage/homepage';
 import { productDetailComp } from './modules/productDetail/productDetail';
 import { checkoutComp } from './modules/checkout/checkout';
+import { eventService } from './services/event.service';
 
 const ROUTES = {
   '/': homepageComp,
@@ -27,6 +28,10 @@ export default class Router {
 
     // @ts-ignore
     const component = ROUTES[window.location.pathname] || notFoundComp;
+    const path = window.location.pathname;
+
+    // Отправка события о переходе по странице
+    eventService.sendEvent('route', { url: path });
 
     component.attach(this.$appRoot);
     component.render();
