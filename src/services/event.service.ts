@@ -1,6 +1,6 @@
 import { ProductData } from 'types';
 
-type EventType = 'route' | 'viewCard' | 'viewCardPromo' | 'addToCard' | 'purchase';
+type EventType = 'route' | 'viewCard' | 'viewCardPromo' | 'addToCart' | 'purchase';
 
 type RoutePayload = {
   url: string;
@@ -8,7 +8,7 @@ type RoutePayload = {
 
 type ViewCardPayload = ProductData & { secretKey?: string };
 
-type AddToCardPayload = ProductData;
+type AddToCartPayload = ProductData;
 
 type PurchasePayload = {
   orderId: string;
@@ -16,7 +16,7 @@ type PurchasePayload = {
   productIds: number[];
 };
 
-type EventPayload = RoutePayload | ViewCardPayload | AddToCardPayload | PurchasePayload;
+type EventPayload = RoutePayload | ViewCardPayload | AddToCartPayload | PurchasePayload;
 
 class EventService {
   async sendEvent(eventType: EventType, payload: EventPayload) {
@@ -26,7 +26,7 @@ class EventService {
       timestamp: Date.now()
     };
 
-    // Вывод в консоль для наглядности
+    // Вывод в консоль
     // console.log('Sending event:', eventData);
 
     try {

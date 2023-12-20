@@ -65,7 +65,7 @@ class ProductDetail extends Component {
     cartService.addProduct(this.product);
 
     // Отправка события при добавлении товара в корзину
-    eventService.sendEvent('addToCard', { ...this.product });
+    eventService.sendEvent('addToCart', { ...this.product });
 
     this._setInCart();
   }
