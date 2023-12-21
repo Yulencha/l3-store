@@ -33,13 +33,14 @@ class ProductDetail extends Component {
     this.view.description.innerText = description;
     this.view.price.innerText = formatPrice(salePriceU);
     this.view.btnBuy.onclick = this._addToCart.bind(this);
+    // Назначаем обработчик клика на кнопку добавления в избранное.
     this.view.btnFav.onclick = this._toggleToFavorites.bind(this);
 
     const isInCart = await cartService.isInCart(this.product);
 
     if (isInCart) this._setInCart();
 
-    // Проверяем, находится ли товар в избранном, и обновляем кнопку
+    // Проверяем, находится ли товар в избранном, если да, то обновляем вид кнопки
     const isFavorite = await favoritesService.isInFavorites(this.product);
     if (isFavorite) {
       this.view.btnFav.classList.add('in-favorites');
@@ -70,6 +71,7 @@ class ProductDetail extends Component {
     this.view.btnBuy.disabled = true;
   }
 
+  // Метод для переключения состояния избранного для товара
   private async _toggleToFavorites() {
     if (!this.product) return;
 

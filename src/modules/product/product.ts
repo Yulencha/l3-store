@@ -44,9 +44,10 @@ export class Product {
   }
   // Метод для удаления товара из избранных
   private async _removeFromFavorites(event: MouseEvent) {
-    event.preventDefault(); // Отменяем стандартное поведение
-    event.stopPropagation(); // Останавливаем всплытие события
+    // Предотвращаем действия по умолчанию (переход по ссылке)
+    event.preventDefault();
 
+    // Удаляем товар из избранного
     await favoritesService.removeProduct(this.product);
     this.view.root.remove(); // Удаляем элемент из DOM
   }
