@@ -44,11 +44,11 @@ export class Product {
           if (entry.isIntersecting) {
             // Формируем данные
             const payload = { ...this.product };
-            // Проверяем, является ли log пустым объектом
+            // Проверяем log в свойствах товара - пустой он или нет
             const isLogEmpty = Object.keys(this.product.log).length === 0;
             // Отправляем событие
             eventService.sendEvent(isLogEmpty ? 'viewCard' : 'viewCardPromo', payload);
-            // После отправки события, можно отменить наблюдение
+            // После отправки события отменяем наблюдение
             observer.unobserve(this.view.root);
           }
         });
@@ -56,6 +56,7 @@ export class Product {
       { threshold: 0.5 }
     ); // Threshold - степень видимости элемента во вьюпорте (от 0 до 1)
 
+    // Начинаем наблюдение за элементом
     observer.observe(this.view.root);
   }
 }

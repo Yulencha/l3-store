@@ -28,8 +28,9 @@ export default class Router {
 
     // @ts-ignore
     const component = ROUTES[window.location.pathname] || notFoundComp;
-    const path = window.location.pathname;
 
+    // Получаем текущий путь из адресной строки браузера
+    const path = window.location.pathname;
     // Отправка события о переходе по странице
     eventService.sendEvent('route', { url: path });
 

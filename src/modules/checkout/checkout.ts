@@ -38,6 +38,7 @@ class Checkout extends Component {
       body: JSON.stringify(this.products)
     });
 
+    // Генерируем уникальный идентификатор для заказа
     const orderId = genUUID();
     // Отправка события оформления заказа
     eventService.sendEvent('purchase', {
@@ -45,6 +46,7 @@ class Checkout extends Component {
       totalPrice: this.totalPrice,
       productIds: this.products.map((p) => p.id)
     });
+
     window.location.href = '/?isSuccessOrder';
   }
 }
