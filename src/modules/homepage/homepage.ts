@@ -6,7 +6,7 @@ import { ProductList } from '../productList/productList';
 
 class Homepage extends Component {
   popularProducts: ProductList;
-  searchHints: SearchHints;
+  searchHints: SearchHints; // Экземпляр SearchHints для управления и отображения блока подсказок
 
   constructor(props: any) {
     super(props);

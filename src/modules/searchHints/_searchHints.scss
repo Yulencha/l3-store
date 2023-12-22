@@ -1,14 +1,12 @@
 .search-hints {
-  // width: 100%;
-  // margin: 0 auto;
   font-family: 'Arial', sans-serif;
   display: flex;
   gap: 8px;
   align-items: baseline;
+  justify-content: center;
   margin: 10px auto;
 
   &__prompt {
-    // margin: 0;
     padding: 4px 0 8px;
     color: black;
   }
@@ -29,10 +27,10 @@
   }
 
   &__link {
-    text-decoration: none; // Убрать подчеркивание у ссылок
+    text-decoration: none;
     border-radius: 8px;
     padding: 4px 6px 8px 6px;
-    transition: background-color 0.3s ease; // Плавный эффект при наведении
+    transition: background-color 0.3s ease;
     background-color: var(--plate-color);
 
     &:hover,
@@ -49,48 +47,3 @@
     color: transparent;
   }
 }
-
-// .search-hints__prompt {
-//   margin: 0;
-//   padding: 10px 15px;
-//   color: #666;
-// }
-
-// .search-hints__list {
-//   list-style: none;
-//   margin: 0;
-//   padding: 0;
-//   // display: flex;
-// }
-
-// .search-hints__item {
-//   display: inline; // Элементы списка будут в одной строке
-//   margin-right: 5px; // Небольшой отступ между элементами
-
-//   &:last-child {
-//     margin-right: 0; // У последнего элемента отступа нет
-//   }
-// }
-
-// .search-hints__link {
-//   text-decoration: none; // Убрать подчеркивание у ссылок
-//   border-radius: 8px;
-//   padding: 4px 6px 8px 6px;
-//   transition: background-color 0.3s ease; // Плавный эффект при наведении
-//   background-color: var(--plate-color);
-
-//   &:hover,
-//   &:focus {
-//     // background-color: #00000033; // Цвет фона при наведении или фокусе
-//   }
-// }
-
-// .search-hints__text {
-//   background-image: linear-gradient(92.97deg, #da15b8 4.93%, #8d06cc 100%);
-//   -webkit-background-clip: text;
-//   background-clip: text;
-//   color: transparent;
-//   &:hover {
-//     color: var(--key-color-dark);
-//   }
-// }

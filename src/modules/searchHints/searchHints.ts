@@ -7,31 +7,28 @@ export class SearchHints {
   hints: Array<{ name: string; url: string }>;
 
   constructor(hints: Array<{ name: string; url: string }>) {
-    this.hints = hints;
-    this.view = new ViewTemplate(html).cloneView();
+    this.hints = hints; // Инициализация массива подсказок
+    this.view = new ViewTemplate(html).cloneView(); // Загрузка и клонирование HTML шаблона для этого компонента
   }
 
   attach($root: HTMLElement) {
-    $root.innerHTML = '';
-    $root.appendChild(this.view.root);
+    $root.appendChild(this.view.root); // Прикрепляем корневой элемент представления к переданному элементу DOM
   }
 
   render() {
     const container = this.view.root;
-    container.innerHTML = ''; // Очистить перед добавлением нового контента
+    container.innerHTML = ''; // Очищаем перед добавлением нового контента
 
-    // Создаем и добавляем элемент <p>
+    // Создание и инициализация структуры компонента
     const promptElement = document.createElement('p');
     promptElement.className = 'search-hints__prompt';
     promptElement.textContent = 'Например,';
     container.appendChild(promptElement);
 
-    // Создаем и добавляем элемент <ul>
     const listElement = document.createElement('ul');
     listElement.className = 'search-hints__list';
     container.appendChild(listElement);
 
-    // Динамическое создание элементов списка
     this.hints.forEach((hint: { name: string; url: string }, index: number) => {
       const itemElement = document.createElement('li');
       itemElement.className = 'search-hints__item';
