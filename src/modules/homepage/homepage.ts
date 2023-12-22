@@ -14,10 +14,12 @@ class Homepage extends Component {
     this.popularProducts.attach(this.view.popular);
   }
 
-  render() {
+  async render() {
+    await userService.ready; // Дожидаемся готовности UserService
+
     fetch('/api/getPopularProducts', {
       headers: {
-        'x-userid': userService.getId()
+        UserID: userService.getId()
       }
     })
       .then((res) => res.json())

@@ -44,9 +44,11 @@ class ProductDetail extends Component {
         this.view.secretKey.setAttribute('content', secretKey);
       });
 
+    await userService.ready; // Дожидаемся готовности UserService
+
     fetch('/api/getPopularProducts', {
       headers: {
-        'x-userid': userService.getId()
+        UserID: userService.getId()
       }
     })
       .then((res) => res.json())
