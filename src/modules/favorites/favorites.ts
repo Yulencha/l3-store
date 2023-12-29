@@ -8,16 +8,16 @@ class Favorites extends Component {
   products!: ProductData[];
 
   async render() {
-    // Получаем список избранных товаров
     this.products = await favoritesService.get();
 
+    if (this.products.length < 1) {
+      this.view.root.classList.add('is__empty');
+      return;
+    }
+
     this.products.forEach((product) => {
-      // Создаем компонент Product для каждого товара
-      // Передаем параметр showRemoveButton как true, чтобы отобразить кнопку удаления из избранного
       const productComp = new Product(product, { showRemoveButton: true });
-      // Вызываем метод render для каждого компонента Product
       productComp.render();
-      // Присоединяем компонент Product к DOM-элементу favoritesList для отображения на странице
       productComp.attach(this.view.favoritesList);
     });
   }

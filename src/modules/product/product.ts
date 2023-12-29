@@ -3,7 +3,8 @@ import { View } from '../../utils/view';
 import { formatPrice } from '../../utils/helpers';
 import html from './product.tpl.html';
 import { ProductData } from 'types';
-import { favoritesService } from '../../services/favorites.service'; // Импортируем сервис избранных товаров
+import { favoritesService } from '../../services/favorites.service';
+import { favoritesComp } from '../favorites/favorites';
 
 type ProductComponentParams = { [key: string]: any };
 
@@ -17,7 +18,6 @@ export class Product {
     this.params = params;
     this.view = new ViewTemplate(html).cloneView();
 
-    // Показывать кнопку удаления, если параметр установлен
     if (this.params.showRemoveButton) {
       this.view.root.classList.add('show-remove-button');
     }
@@ -37,18 +37,15 @@ export class Product {
 
     if (this.params.isHorizontal) this.view.root.classList.add('is__horizontal');
 
-    // Добавляем обработчик событий для кнопки удаления, если параметр установлен
     if (this.params.showRemoveButton && this.view.removeBtn) {
       this.view.removeBtn.onclick = this._removeFromFavorites.bind(this);
     }
   }
-  // Метод для удаления товара из избранных
   private async _removeFromFavorites(event: MouseEvent) {
-    // Предотвращаем действия по умолчанию (переход по ссылке)
     event.preventDefault();
 
-    // Удаляем товар из избранного
     await favoritesService.removeProduct(this.product);
-    this.view.root.remove(); // Удаляем элемент из DOM
+    this.view.root.remove();
+    favoritesComp.render();
   }
 }
